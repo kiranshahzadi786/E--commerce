@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+    
+</style>
+
+</head>
+
+
+
+<body>
+    <div class="main">
+        <h1>Add a Product</h1>
+        <a href="./index.html">Home</a>
+        <a href="./products.html">All products</a>
+
+    <form onsubmit="createProduct(); return false ">
+
+        <label for="ProductName">Product Name:</label>
+        <input class="inputs" type="text" id="ProductName" required>
+        <br>
+
+        <label for="productPrice">Product Price:</label>
+        <input class="inputs" type="text" id="productPrice" required>
+        <br>
+
+        <label for="currencyCode">Currency Code:</label>
+        <input class="inputs" type="text" id="currencyCode" required>
+        <br>
+
+        <label for="numberOfSale">Number Of Sale:</label>
+        <input class="inputs" type="text " id="numberOfSale" required>
+        <br>
+        <label for="rating">Rating:</label>
+        <input class="inputs" type="number " min="0" max="5"  id="rating" required>
+        <br>
+
+        <label for="isFreeShiping">Free Shipping:</label>
+        <select name="isFreeShiping" id="isFreeShiping">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+        <br>
+        <label for="shopName">Shop Name:</label>
+        <input class="inputs" type="text " id="shopName" required>
+        <br>
+        <br>
+        
+
+        <input class="button" type="submit" value="Add in database">
+    </form>
+    
+    <p id="message"></p>
+
+
+    <br>
+    <br>
+
+</div>
+    <script>
+
+        function createProduct() {
+
+            var ProductName = document.getElementById('ProductName').value;
+            var productPrice = document.getElementById('productPrice').value;
+            var currencyCode = document.getElementById('currencyCode').value;
+            var numberOfSale = document.getElementById('numberOfSale').value;
+            var rating = document.getElementById('rating').value;
+            var isFreeShiping = document.getElementById('isFreeShiping').value;
+            var shopName = document.getElementById('shopName').value;
+
+           
+
+            axios.post('http://localhost:3000/product', {
+                ProductName,
+                productPrice,
+                currencyCode,
+                numberOfSale,
+                rating,
+                isFreeShiping,
+                shopName,
+
+
+
+
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    console.log(error.response.data);
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                });
+        }
+
+
+      
+    </script>
+
+</body>
+</html>
